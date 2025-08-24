@@ -16,15 +16,19 @@
       ]"
     >
       <div class="p-6">
-        <div class="flex items-center justify-center mb-8">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-            <span class="text-white font-bold text-xl">S</span>
+         <div class="flex items-center justify-center mb-8">
+          <div class="flex items-center space-x-2">
+            <img
+              src="../assets/img/SEMATICA.png"
+              alt="Sematicca Logo"
+              class="w-12 h-12 object-contain"
+            >
+            <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Sematicca
+            </span>
           </div>
-          <span class="ml-3 text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Sematicca
-          </span>
         </div>
-        
+              
         <nav class="space-y-2">
           <NuxtLink 
             v-for="item in navigationItems" 
