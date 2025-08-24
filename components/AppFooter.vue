@@ -6,7 +6,7 @@
         <div class="space-y-6">
           <div class="flex items-center space-x-2">
                       <img
-          src="../assets/img/sematicca.png"
+             src="../assets/img/SEMATICA.png"
           alt="sematicca Icon"
           class="w-10 h-10 object-contain"
         >
