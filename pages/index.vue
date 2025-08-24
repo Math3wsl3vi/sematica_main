@@ -262,6 +262,7 @@ const navigationItems = ref([
   { name: 'Integrations', path: '/omnichanel', icon: 'fas fa-plug' },
   { name: 'Analytics', path: '/analytics', icon: 'fas fa-chart-bar' },
    { name: 'Invoice', path: '/invoice', icon: 'fas fa-chart-bar' },
+    { name: 'Payment', path: '/payments', icon: 'fas fa-chart-bar' },
   { name: 'Settings', path: '/settings', icon: 'fas fa-cog' }
 ]);
 
