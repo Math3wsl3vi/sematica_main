@@ -1,7 +1,45 @@
 <template>
   <div class="min-h-screen bg-gray-100 font-inter">
+
+<!-- Hero Section -->
+<section class="relative py-20 mb-12 rounded-b-3xl bg-gradient-to-b from-gray-50 to-gray-100">
+  <div class="container mx-auto px-6 text-center max-w-5xl">
+    <div class="animate-fade-in">
+      <!-- Title -->
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+        Smart Invoicing Made <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Simple</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-gray-600">
+        Create, customize, and send professional invoices with ease.  
+        Integrate M-Pesa, Card Payments, and more — all in one place.
+      </p>
+
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+      <div class="px-6 py-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-gray-900">5,000+</div>
+        <div class="text-sm text-gray-500">Invoices Generated</div>
+      </div>
+      <div class="px-6 py-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-gray-900">3+</div>
+        <div class="text-sm text-gray-500">Payment Methods</div>
+      </div>
+      <div class="px-6 py-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        <div class="text-3xl font-bold text-gray-900">99.9%</div>
+        <div class="text-sm text-gray-500">Uptime Reliability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
       <!-- Invoice Template Editor -->
       <section class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-sm border border-gray-100">
         <h2 class="text-xl font-semibold text-gray-800 mb-6">Invoice Template Editor</h2>

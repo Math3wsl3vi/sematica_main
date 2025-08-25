@@ -18,7 +18,7 @@
 
           <div class="flex flex-wrap justify-center gap-3 md:gap-6">
             <div
-v-for="(company, index) in companies" :key="index" 
+                     v-for="(company, index) in companies" :key="index" 
                  class="px-5 py-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <span class="text-sm md:text-base font-medium text-gray-700">{{ company }}</span>
             </div>

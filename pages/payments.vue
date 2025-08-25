@@ -1,22 +1,26 @@
 <template>
   <div class="min-h-screen bg-gray-50 font-inter">
-    <!-- Header -->
-    <div class="bg-white shadow-sm border-b">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold text-gray-900">💳 Payment Solutions</h1>
-            <p class="mt-2 text-gray-600">Configure payment integrations for your applications</p>
-          </div>
-          <div class="flex items-center space-x-3">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-              <div class="w-2 h-2 bg-green-400 rounded-full mr-2"/>
-              All Systems Operational
-            </span>
-          </div>
-        </div>
-      </div>
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+  <div class="container mx-auto px-6 text-center">
+    <div class="animate-fade-in">
+      <span class="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold mb-6">
+        💳 Smart Payment Infrastructure
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+        Powering
+        <span class="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+          Secure Transactions
+        </span>
+        for Every Business
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        Seamlessly integrate M-Pesa, Card Payments, Bank Transfers, and more. 
+        One platform for reliable, scalable, and secure financial operations.
+      </p>
     </div>
+  </div>
+</section>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Stats Cards -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -250,63 +254,81 @@
           </div>
         </div>
         <!-- Bank Transfers -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center">
-                <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
-                  </svg>
-                </div>
-                <div class="ml-3">
-                  <h3 class="text-lg font-semibold text-gray-900">Bank Transfers</h3>
-                  <p class="text-sm text-gray-600">Direct bank integration</p>
-                </div>
-              </div>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                Coming Soon
-              </span>
-            </div>
-            <p class="text-gray-600 mb-6">
-              Enable direct bank transfers through integrated banking gateways for high-value transactions.
-            </p>
-            <div class="space-y-3 mb-6">
-              <div class="flex items-center text-sm text-gray-600">
-                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Multi-bank support
-              </div>
-              <div class="flex items-center text-sm text-gray-600">
-                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Instant verification
-              </div>
-              <div class="flex items-center text-sm text-gray-600">
-                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Lower transaction fees
-              </div>
-            </div>
-            <div class="flex space-x-3">
-              <button
-                disabled
-                class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-lg cursor-not-allowed font-medium"
-              >
-                Coming Soon
-              </button>
-              <button
-                class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
-                @click="viewDocs('bank-transfers')"
-              >
-                Learn More
-              </button>
-            </div>
-          </div>
+<div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center">
+        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+          <!-- Stripe Icon (credit card style) -->
+          <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2 7h20M2 11h20M6 15h2m4 0h6M2 19h20" />
+          </svg>
         </div>
+        <div class="ml-3">
+          <h3 class="text-lg font-semibold text-gray-900">Stripe Payments</h3>
+          <p class="text-sm text-gray-600">Global online transactions</p>
+        </div>
+      </div>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        Live
+      </span>
+    </div>
+
+    <p class="text-gray-600 mb-6">
+      Accept card payments, digital wallets, and recurring subscriptions with Stripe’s secure and scalable infrastructure.
+    </p>
+
+    <!-- Features -->
+    <div class="space-y-3 mb-6">
+      <div class="flex items-center text-sm text-gray-600">
+        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd" />
+        </svg>
+        Credit & Debit Cards
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd" />
+        </svg>
+        Apple Pay & Google Pay
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd" />
+        </svg>
+        Subscription Billing
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex space-x-3">
+      <button
+        class="flex-1 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+        @click="viewDocs('stripe')"
+      >
+        Get Started
+      </button>
+      <button
+        class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+        @click="viewDocs('stripe')"
+      >
+        Learn More
+      </button>
+    </div>
+  </div>
+</div>
+
       </div>
       <!-- Integration Status -->
       <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
