@@ -16,7 +16,7 @@
           <p class="text-gray-400 max-w-xs">
             Automate your business with AI-driven chat, voice, and commerce solutions.
           </p>
-          <div class="space-y-4">
+          <div class="space-y-4 pt-4">
             <h3 class="text-lg font-bold text-white">Stay Updated</h3>
             <form class="flex flex-col sm:flex-row gap-2" @submit.prevent="subscribeNewsletter">
               <input
