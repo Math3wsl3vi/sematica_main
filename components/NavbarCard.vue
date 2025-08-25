@@ -7,7 +7,7 @@
           src="../assets/img/SEMATICA.png"
           alt="Sematica Icon"
           class="w-10 h-10 object-contain"
-        />
+        >
         <h1 class="text-2xl font-bold text-blue-600">Sematicca</h1>
       </div>
 
@@ -26,8 +26,8 @@
       <!-- Hamburger Button for Mobile -->
       <button
         class="md:hidden text-gray-700 focus:outline-none"
-        @click="toggleMenu"
         aria-label="Toggle navigation menu"
+        @click="toggleMenu"
       >
         <svg
           class="w-6 h-6"
