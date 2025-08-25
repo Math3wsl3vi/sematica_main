@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       <!-- Logo and Title -->
       <div class="flex items-center gap-2">
-        <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain" />
+        <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain" >
         <NuxtLink to="/dashboard" class="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors">
           Sematica
         </NuxtLink>
@@ -82,7 +82,7 @@ const toggleMenu = () => {
 
 // Navigation items
 const navigationItems = ref([
-  { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Dashboard', path: '/' },
   { name: 'Assistant Builder', path: '/assistant' },
   { name: 'Templates', path: '/integration' },
   { name: 'Integrations', path: '/omnichanel' },

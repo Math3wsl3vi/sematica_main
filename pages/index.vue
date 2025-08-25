@@ -1,14 +1,32 @@
 <template>
-  <section class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex font-inter">
-    <!-- Mobile Sidebar Overlay -->
-    <div 
-      v-if="sidebarOpen" 
-      class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
-      @click="sidebarOpen = false"
-    />
+  <section class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex font-inter md:px-44">
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col min-w-0">
+        <!-- Hero Section -->
+        <section class="py-16">
+          <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6 animate-fade-in">
+              Real-Time <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Analytics Dashboard</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-fade-in-delay-200">
+              Track conversations, revenue, and channel performance in one place. Stay on top of your customer engagement and business growth with live data.
+            </p>
+
+            <!-- Current Date & Time -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-delay-400">
+              <div class="bg-white/70 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-md">
+                <p class="text-sm text-gray-500">Current Time</p>
+                <p class="text-lg font-semibold text-gray-800">{{ currentTime }}</p>
+              </div>
+              <div class="bg-white/70 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-md">
+                <p class="text-sm text-gray-500">Today’s Date</p>
+                <p class="text-lg font-semibold text-gray-800">{{ currentDate }}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
       <!-- Main Content -->
       <main class="flex-1 px-4 sm:px-6 py-8 overflow-y-auto">
@@ -156,7 +174,7 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 // Reactive state
-const sidebarOpen = ref(false);
+
 const selectedPeriod = ref('7D');
 const currentTime = ref('');
 const currentDate = ref('');
