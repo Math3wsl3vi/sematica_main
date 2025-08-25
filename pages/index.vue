@@ -1,44 +1,42 @@
 <template>
-  <section class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex font-inter md:px-44">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 font-inter">
 
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col min-w-0">
-        <!-- Hero Section -->
-        <section class="py-16">
-          <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6 animate-fade-in">
-              Real-Time <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Analytics Dashboard</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 mb-12 max-w-3xl mx-auto animate-fade-in-delay-200">
-              Track conversations, revenue, and channel performance in one place. Stay on top of your customer engagement and business growth with live data.
-            </p>
+    <div class="container mx-auto px-4 md:px-6 py-8">
+      <!-- Hero Section -->
+      <section class="py-12 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+          Real-Time <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Analytics Dashboard</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+          Track conversations, revenue, and channel performance in one place. Stay on top of your customer engagement and business growth with live data.
+        </p>
+        
+        <div class="flex flex-col items-center">
+          <p class="mb-6 text-sm md:text-base text-gray-500">
+            Trusted by <span class="font-semibold text-gray-700">500+ businesses</span> in Kenya
+          </p>
 
-            <!-- Current Date & Time -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-delay-400">
-              <div class="bg-white/70 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-md">
-                <p class="text-sm text-gray-500">Current Time</p>
-                <p class="text-lg font-semibold text-gray-800">{{ currentTime }}</p>
-              </div>
-              <div class="bg-white/70 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-md">
-                <p class="text-sm text-gray-500">Today’s Date</p>
-                <p class="text-lg font-semibold text-gray-800">{{ currentDate }}</p>
-              </div>
+          <div class="flex flex-wrap justify-center gap-3 md:gap-6">
+            <div
+v-for="(company, index) in companies" :key="index" 
+                 class="px-5 py-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <span class="text-sm md:text-base font-medium text-gray-700">{{ company }}</span>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-
-      <!-- Main Content -->
-      <main class="flex-1 px-4 sm:px-6 py-8 overflow-y-auto">
+      <!-- Main Dashboard Content -->
+      <main class="space-y-8">
         <!-- Key Metrics Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <div 
             v-for="(metric, index) in metrics" 
             :key="metric.title"
             :class="[
-              'bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-6 hover:shadow-2xl',
-              'transition-all duration-300 hover:-translate-y-1 border border-gray-100',
-              'hover:bg-white/90 group cursor-pointer'
+              'bg-white/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-100',
+              'hover:shadow-lg transition-all duration-300 hover:-translate-y-1',
+              'group cursor-pointer'
             ]"
             :style="{ animationDelay: `${index * 100}ms` }"
             class="animate-fade-in"
@@ -47,14 +45,14 @@
               <div
 :class="[
                 'w-12 h-12 rounded-xl flex items-center justify-center',
-                'bg-gradient-to-br group-hover:scale-110 transition-transform',
+                'bg-gradient-to-br group-hover:scale-110 transition-transform duration-300',
                 metric.gradient
               ]">
                 <i :class="[metric.icon, 'text-white text-lg']"/>
               </div>
               <div
 :class="[
-                'px-2 py-1 rounded-full text-xs font-semibold',
+                'px-2.5 py-1 rounded-full text-xs font-semibold',
                 metric.trend > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
               ]">
                 <i :class="metric.trend > 0 ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"/>
@@ -68,12 +66,12 @@
         </div>
 
         <!-- Charts Section -->
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <!-- Main Chart -->
-          <div class="xl:col-span-2 bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-gray-100">
-            <div class="flex items-center justify-between mb-6">
+          <div class="xl:col-span-2 bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
               <h2 class="text-xl font-semibold text-gray-800">Analytics Overview</h2>
-              <div class="flex bg-gray-100 rounded-lg p-1">
+              <div class="flex bg-gray-100 rounded-lg p-1 w-fit">
                 <button 
                   v-for="period in chartPeriods"
                   :key="period"
@@ -97,7 +95,7 @@
           <!-- Side Stats -->
           <div class="space-y-6">
             <!-- Channel Performance -->
-            <div class="bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-gray-100">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100">
               <h3 class="text-lg font-semibold text-gray-800 mb-4">Channel Performance</h3>
               <div class="space-y-4">
                 <div v-for="channel in channels" :key="channel.name" class="flex items-center justify-between">
@@ -119,13 +117,13 @@
             </div>
 
             <!-- Recent Activity -->
-            <div class="bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-gray-100">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100">
               <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
               <div class="space-y-3">
                 <div v-for="activity in recentActivity" :key="activity.id" class="flex items-start gap-3">
-                  <div :class="['w-2 h-2 rounded-full mt-2', activity.color]"/>
-                  <div>
-                    <p class="text-sm text-gray-800">{{ activity.text }}</p>
+                  <div :class="['w-2 h-2 rounded-full mt-2 flex-shrink-0', activity.color]"/>
+                  <div class="min-w-0">
+                    <p class="text-sm text-gray-800 truncate">{{ activity.text }}</p>
                     <p class="text-xs text-gray-500">{{ activity.time }}</p>
                   </div>
                 </div>
@@ -135,7 +133,7 @@
         </div>
 
         <!-- Quick Actions Grid -->
-        <div class="bg-white/70 backdrop-blur-sm shadow-lg rounded-2xl p-6 border border-gray-100">
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100">
           <h2 class="text-xl font-semibold text-gray-800 mb-6">Quick Actions</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <NuxtLink
@@ -143,9 +141,9 @@
               :key="action.title"
               :to="action.path"
               :class="[
-                'group flex flex-col items-center justify-center p-6 rounded-xl',
+                'group flex flex-col items-center justify-center p-5 rounded-xl',
                 'hover:shadow-lg transition-all duration-300 hover:-translate-y-1',
-                'border-2 border-dashed border-gray-200 hover:border-solid',
+                'border border-gray-200 hover:border-transparent',
                 action.bgClass, action.hoverClass
               ]"
             >
@@ -163,7 +161,7 @@
         </div>
       </main>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
@@ -174,12 +172,10 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 // Reactive state
-
 const selectedPeriod = ref('7D');
 const currentTime = ref('');
 const currentDate = ref('');
-// const conversations = ref(1254);
-// const sales = ref(128500);
+const companies = ref(['TechCorp', 'GrowthCo', 'Xvideos', 'SmartBiz', 'MarketLead', 'NexusKE']);
 
 // Metrics data
 const metrics = ref([
@@ -435,5 +431,6 @@ onUnmounted(() => {
 * {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 </style>
