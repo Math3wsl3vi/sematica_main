@@ -1,84 +1,162 @@
 <template>
   <div class="min-h-screen bg-gray-100 font-inter">
-
     <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Invoice Template Editor -->
-      <section class="bg-white/70 backdrop-blur-sm rounded-3xl p-6 mb-8 shadow-lg">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Invoice Template Editor</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-sm border border-gray-100">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">Invoice Template Editor</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Template Name</label>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Template Name</label>
             <input
               v-model="template.name"
               type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-600"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
               placeholder="e.g., Standard Invoice"
             >
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Header Text</label>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Select App</label>
+            <select
+              v-model="template.appId"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
+            >
+              <option value="">Select an App</option>
+              <option v-for="app in apps" :key="app.id" :value="app.id">{{ app.name }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Payment Methods</label>
+            <div class="flex flex-wrap gap-2">
+              <label v-for="method in availablePaymentMethods" :key="method" class="flex items-center text-sm">
+                <input
+                  v-model="template.paymentMethods"
+                  type="checkbox"
+                  :value="method"
+                  :disabled="!template.appId || !getAppPaymentMethods(template.appId).includes(method)"
+                  class="mr-1 h-4 w-4"
+                >
+                <span :class="{ 'text-gray-400': !getAppPaymentMethods(template.appId).includes(method) }">
+                  {{ method }}
+                </span>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Primary Color</label>
+            <input
+              v-model="template.color"
+              type="color"
+              class="w-full h-9 border border-gray-200 rounded-lg"
+            >
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Header Text</label>
             <input
               v-model="template.header"
               type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-600"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
               placeholder="e.g., Sematica Solutions"
             >
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Footer Text</label>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Footer Text</label>
             <input
               v-model="template.footer"
               type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-600"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
               placeholder="e.g., Thank you for your business!"
-            >
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">Primary Color</label>
-           <input
-            v-model="template.color"
-            type="color"
-            class="w-full h-10 border border-gray-300 rounded-xl"
             >
           </div>
         </div>
         <button
-          class="mt-6 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+          class="mt-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-md transition-all text-sm"
+          :disabled="!template.name || !template.appId || !template.paymentMethods.length"
           @click="saveTemplate"
         >
           Save Template
         </button>
       </section>
 
+      <!-- Auto-Generate Invoice Form -->
+      <section class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-8 shadow-sm border border-gray-100">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">Generate Invoice</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Select Template</label>
+            <select
+              v-model="newInvoice.templateId"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
+            >
+              <option value="">Select a Template</option>
+              <option v-for="template in templates" :key="template.id" :value="template.id">{{ template.name }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Customer Name</label>
+            <input
+              v-model="newInvoice.customerName"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
+              placeholder="e.g., John Doe"
+            >
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Customer Contact</label>
+            <input
+              v-model="newInvoice.customerContact"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
+              placeholder="e.g., 254723696767 or john@example.com"
+            >
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Amount (KES)</label>
+            <input
+              v-model.number="newInvoice.amount"
+              type="number"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-600 text-sm"
+              placeholder="e.g., 5000"
+            >
+          </div>
+        </div>
+        <button
+          class="mt-6 px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-md transition-all text-sm"
+          :disabled="!newInvoice.templateId || !newInvoice.customerName || !newInvoice.customerContact || !newInvoice.amount"
+          @click="generateInvoice"
+        >
+          Generate Invoice
+        </button>
+      </section>
+
       <!-- Invoices Table -->
-      <section class="bg-white/70 backdrop-blur-sm rounded-3xl p-6 shadow-lg">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Invoices</h2>
+      <section class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">Invoices</h2>
         <div class="overflow-x-auto">
-          <table class="w-full text-left">
+          <table class="w-full text-left text-sm">
             <thead>
-              <tr class="text-gray-600 text-sm">
-                <th class="p-4">Invoice ID</th>
-                <th class="p-4">Customer</th>
-                <th class="p-4">Amount (KES)</th>
-                <th class="p-4">Status</th>
-                <th class="p-4">Date</th>
-                <th class="p-4">Actions</th>
+              <tr class="text-gray-600">
+                <th class="p-3">Invoice ID</th>
+                <th class="p-3">Customer</th>
+                <th class="p-3">Amount (KES)</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Date</th>
+                <th class="p-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="invoice in invoices"
                 :key="invoice.id"
-                class="border-t border-gray-200 hover:bg-gray-50 transition-colors"
+                class="border-t border-gray-100 hover:bg-gray-50 transition-colors"
               >
-                <td class="p-4">{{ invoice.id }}</td>
-                <td class="p-4">{{ invoice.customerName }}</td>
-                <td class="p-4">{{ invoice.amount.toLocaleString() }}</td>
-                <td class="p-4">
+                <td class="p-3">{{ invoice.id }}</td>
+                <td class="p-3">{{ invoice.customerName }}</td>
+                <td class="p-3">{{ invoice.amount.toLocaleString() }}</td>
+                <td class="p-3">
                   <span
                     :class="[
-                      'px-3 py-1 rounded-full text-sm font-semibold',
+                      'px-2 py-1 rounded-full text-xs font-medium',
                       invoice.status === 'Paid' ? 'bg-green-100 text-green-600' :
                       invoice.status === 'Unpaid' ? 'bg-red-100 text-red-600' :
                       'bg-yellow-100 text-yellow-600'
@@ -87,17 +165,17 @@
                     {{ invoice.status }}
                   </span>
                 </td>
-                <td class="p-4">{{ formatDate(invoice.date) }}</td>
-                <td class="p-4 flex gap-2">
+                <td class="p-3">{{ formatDate(invoice.date) }}</td>
+                <td class="p-3 flex gap-2">
                   <button
                     v-if="invoice.status !== 'Paid'"
-                    class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    class="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs"
                     @click="sendReminder(invoice)"
                   >
                     Send Reminder
                   </button>
                   <button
-                    class="px-3 py-1 border border-gray-300 text-gray-600 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors"
+                    class="px-3 py-1 border border-gray-200 text-gray-600 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors text-xs"
                     @click="viewReceipt(invoice)"
                   >
                     View Receipt
@@ -113,64 +191,161 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { format } from 'date-fns';
+import { ref } from 'vue'
+import { format } from 'date-fns'
 
+
+// Template state
 const template = ref({
-  name: 'Standard Invoice',
+  name: '',
+  appId: '',
+  paymentMethods: [],
   header: 'Sematica Solutions',
   footer: 'Thank you for your business!',
   color: '#2563EB',
-});
+})
 
-// Dummy invoices
+// New invoice form
+const newInvoice = ref({
+  templateId: '',
+  customerName: '',
+  customerContact: '',
+  amount: null,
+})
+
+// Dummy apps (instead of pulling from Firestore)
+const apps = ref([
+  { id: 'app1', name: 'E-commerce Store', paymentMethods: ['M-Pesa STK Push', 'Card Payments'] },
+  { id: 'app2', name: 'Restaurant App', paymentMethods: ['M-Pesa Paybill', 'Card Payments'] },
+  { id: 'app3', name: 'Service Booking', paymentMethods: ['M-Pesa STK Push'] },
+])
+
+// Available payment methods
+const availablePaymentMethods = ['M-Pesa STK Push', 'M-Pesa Paybill', 'Card Payments']
+
+// Templates (local)
+const templates = ref([
+  {
+    id: 'template1',
+    name: 'Default Invoice Template',
+    appId: 'app1',
+    paymentMethods: ['M-Pesa STK Push'],
+    header: 'Sematica Solutions',
+    footer: 'Thank you for your business!',
+    color: '#2563EB',
+    createdAt: new Date(),
+  },
+])
+
+// Invoices (dummy data)
 const invoices = ref([
-  { id: 'INV001', customerName: 'Alice Johnson', amount: 12500, status: 'Paid', date: new Date('2025-08-01') },
-  { id: 'INV002', customerName: 'Brian Kim', amount: 8500, status: 'Unpaid', date: new Date('2025-08-05') },
-  { id: 'INV003', customerName: 'Carlos Lopez', amount: 19200, status: 'Pending', date: new Date('2025-08-10') },
-  { id: 'INV004', customerName: 'Diana Smith', amount: 4500, status: 'Paid', date: new Date('2025-08-15') },
-]);
+  { id: 'INV001', customerName: 'Alice Johnson', customerContact: 'alice@example.com', amount: 12500, status: 'Paid', date: new Date('2025-08-01'), templateId: 'template1', paymentMethod: 'M-Pesa STK Push' },
+  { id: 'INV002', customerName: 'Brian Kim', customerContact: '254723696767', amount: 8500, status: 'Unpaid', date: new Date('2025-08-05'), templateId: 'template1', paymentMethod: 'Card Payments' },
+  { id: 'INV003', customerName: 'Carlos Lopez', customerContact: 'carlos@example.com', amount: 19200, status: 'Pending', date: new Date('2025-08-10'), templateId: 'template1', paymentMethod: 'M-Pesa Paybill' },
+])
 
-// Save template (dummy)
+// Get payment methods for selected app
+const getAppPaymentMethods = (appId) => {
+  const app = apps.value.find(a => a.id === appId)
+  return app ? app.paymentMethods : []
+}
+
+// Save template (local push)
 const saveTemplate = () => {
-  alert(`Template "${template.value.name}" saved!`);
-};
+  const templateData = {
+    id: `template${Math.floor(1000 + Math.random() * 9000)}`,
+    ...template.value,
+    createdAt: new Date(),
+  }
+  templates.value.push(templateData)
+  alert(`Template "${template.value.name}" saved!`)
+  template.value = { name: '', appId: '', paymentMethods: [], header: 'Sematica Solutions', footer: 'Thank you for your business!', color: '#2563EB' }
+}
 
-// Format date
-const formatDate = (date) => format(new Date(date), 'MMM dd, yyyy');
+// Generate invoice (local push)
+const generateInvoice = () => {
+  const selectedTemplate = templates.value.find(t => t.id === newInvoice.value.templateId)
+  if (!selectedTemplate) {
+    alert('Template not found')
+    return
+  }
 
-// Dummy actions
+  const invoice = {
+    id: `INV${Math.floor(1000 + Math.random() * 9000)}`,
+    customerName: newInvoice.value.customerName,
+    customerContact: newInvoice.value.customerContact,
+    amount: newInvoice.value.amount,
+    status: 'Pending',
+    date: new Date(),
+    templateId: newInvoice.value.templateId,
+    appId: selectedTemplate.appId,
+    paymentMethod: selectedTemplate.paymentMethods[0], // Use first available method
+  }
+
+  invoices.value.push(invoice)
+
+  // Simulate payment initiation
+  if (invoice.paymentMethod === 'M-Pesa STK Push') {
+    alert(`M-Pesa STK Push sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  } else if (invoice.paymentMethod === 'M-Pesa Paybill') {
+    alert(`Paybill instructions sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  } else if (invoice.paymentMethod === 'Card Payments') {
+    alert(`Card payment link sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  }
+
+  newInvoice.value = { templateId: '', customerName: '', customerContact: '', amount: null }
+}
+
+// Send reminder
 const sendReminder = (invoice) => {
-  alert(`Reminder sent to ${invoice.customerName} for invoice ${invoice.id}`);
-};
+  if (invoice.paymentMethod === 'M-Pesa STK Push') {
+    alert(`Reminder: M-Pesa STK Push sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  } else if (invoice.paymentMethod === 'M-Pesa Paybill') {
+    alert(`Reminder: Paybill instructions sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  } else if (invoice.paymentMethod === 'Card Payments') {
+    alert(`Reminder: Card payment link sent to ${invoice.customerContact} for KES ${invoice.amount}`)
+  }
 
+  if (invoice.status !== 'Unpaid') {
+    invoice.status = 'Unpaid'
+  }
+}
+
+// View receipt
 const viewReceipt = (invoice) => {
+  const selectedTemplate = templates.value.find(t => t.id === invoice.templateId) || template.value
   const receipt = `
     Invoice #${invoice.id}
     Customer: ${invoice.customerName}
+    Contact: ${invoice.customerContact}
     Amount: KES ${invoice.amount.toLocaleString()}
     Status: ${invoice.status}
     Date: ${formatDate(invoice.date)}
-    Header: ${template.value.header}
-    Footer: ${template.value.footer}
-  `;
-  alert(receipt);
-};
+    Header: ${selectedTemplate.header}
+    Footer: ${selectedTemplate.footer}
+    Payment Method: ${invoice.paymentMethod || 'N/A'}
+  `
+  alert(receipt)
+}
+
+// Format date
+const formatDate = (date) => format(new Date(date), 'MMM dd, yyyy')
 </script>
 
+
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 table {
   min-width: 100%;
 }
 
 tr {
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
