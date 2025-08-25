@@ -7,103 +7,8 @@
       @click="sidebarOpen = false"
     />
 
-    <!-- Sidebar -->
-    <aside 
-      :class="[
-        'fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white/90 backdrop-blur-xl shadow-xl border-r border-gray-200',
-        'transition-transform duration-300 ease-in-out',
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      ]"
-    >
-      <div class="p-6">
-         <div class="flex items-center justify-center mb-8">
-          <div class="flex items-center space-x-2">
-            <img
-              src="../assets/img/SEMATICA.png"
-              alt="Sematicca Logo"
-              class="w-12 h-12 object-contain"
-            >
-            <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Sematicca
-            </span>
-          </div>
-        </div>
-              
-        <nav class="space-y-2">
-          <NuxtLink 
-            v-for="item in navigationItems" 
-            :key="item.path"
-            :to="item.path" 
-            :class="[
-              'flex items-center px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50',
-              'rounded-xl transition-all duration-200 group relative overflow-hidden',
-              $route.path === item.path ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : ''
-            ]"
-            @click="sidebarOpen = false"
-          >
-            <i :class="[item.icon, 'mr-3 text-lg group-hover:scale-110 transition-transform']"/> 
-            {{ item.name }}
-            <div v-if="$route.path === item.path" class="absolute right-2 w-2 h-2 bg-white rounded-full animate-pulse"/>
-          </NuxtLink>
-        </nav>
-
-        <!-- User Profile in Sidebar -->
-        <div class="mt-8 pt-6 border-t border-gray-200">
-          <div class="flex items-center px-4 py-3 rounded-xl bg-gradient-to-r from-gray-50 to-blue-50">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-              <span class="text-white font-semibold text-sm">L</span>
-            </div>
-            <div class="ml-3">
-              <p class="text-sm font-semibold text-gray-800">Levi</p>
-              <p class="text-xs text-gray-500">Admin</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
     <!-- Main Content -->
     <div class="flex-1 flex flex-col min-w-0">
-      <!-- Top Navbar -->
-      <header class="bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-200 px-4 sm:px-6 py-4">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center">
-            <button 
-              class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors mr-3"
-              @click="sidebarOpen = !sidebarOpen"
-            >
-              <i class="fas fa-bars text-gray-600"/>
-            </button>
-            <div>
-              <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Dashboard Overview
-              </h1>
-              <p class="text-sm text-gray-500 mt-1">Welcome back! Here's what's happening today.</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center gap-4">
-            <!-- Notifications -->
-            <div class="relative">
-              <button class="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
-                <i class="fas fa-bell text-gray-600"/>
-                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"/>
-              </button>
-            </div>
-            
-            <!-- Settings -->
-            <button class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <i class="fas fa-cog text-gray-600"/>
-            </button>
-            
-            <!-- Time Display -->
-            <div class="hidden sm:block text-right">
-              <p class="text-sm font-semibold text-gray-800">{{ currentTime }}</p>
-              <p class="text-xs text-gray-500">{{ currentDate }}</p>
-            </div>
-          </div>
-        </div>
-      </header>
 
       <!-- Main Content -->
       <main class="flex-1 px-4 sm:px-6 py-8 overflow-y-auto">
@@ -257,18 +162,6 @@ const currentTime = ref('');
 const currentDate = ref('');
 // const conversations = ref(1254);
 // const sales = ref(128500);
-
-// Navigation items
-const navigationItems = ref([
-  { name: 'Dashboard', path: '/dashboard', icon: 'fas fa-chart-line' },
-  { name: 'Assistant Builder', path: '/assistant', icon: 'fas fa-robot' },
-  { name: 'Templates', path: '/integration', icon: 'fas fa-box' },
-  { name: 'Integrations', path: '/omnichanel', icon: 'fas fa-plug' },
-  { name: 'Analytics', path: '/analytics', icon: 'fas fa-chart-bar' },
-   { name: 'Invoice', path: '/invoice', icon: 'fas fa-chart-bar' },
-    { name: 'Payment', path: '/payments', icon: 'fas fa-chart-bar' },
-  { name: 'Settings', path: '/settings', icon: 'fas fa-cog' }
-]);
 
 // Metrics data
 const metrics = ref([

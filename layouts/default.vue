@@ -1,14 +1,21 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <!-- NavbarCard -->
+    <NavbarCard />
+
+    <!-- Main content -->
     <main class="flex-grow min-h-screen">
       <slot />
     </main>
-    <AppFooter/>
+
+    <!-- Footer -->
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
-// Removed NavbarCard import since it’s no longer used
+import NavbarCard from '~/components/NavbarCard.vue'
+import AppFooter from '~/components/AppFooter.vue'
 </script>
 
 <style scoped>

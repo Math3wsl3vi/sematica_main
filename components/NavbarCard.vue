@@ -1,64 +1,69 @@
 <template>
-  <nav class="bg-white shadow-lg px-6 py-4 sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Logo with Icon -->
+  <nav class="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 font-inter py-2">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <!-- Logo and Title -->
       <div class="flex items-center gap-2">
-        <img
-          src="../assets/img/SEMATICA.png"
-          alt="Sematica Icon"
-          class="w-10 h-10 object-contain"
-        >
-        <h1 class="text-2xl font-bold text-blue-600">Sematicca</h1>
+        <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain" />
+        <NuxtLink to="/dashboard" class="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+          Sematica
+        </NuxtLink>
       </div>
 
       <!-- Desktop Menu -->
-      <ul class="hidden md:flex gap-6">
-        <li v-for="link in navLinks" :key="link.to">
+      <ul class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <li v-for="item in navigationItems" :key="item.path">
           <NuxtLink
-            :to="link.to"
-            class="text-gray-700 hover:text-blue-600 transition-colors duration-200"
+            :to="item.path"
+            class="hover:text-blue-600 transition-colors duration-150"
+            :class="{ 'text-blue-600': $route.path === item.path }"
           >
-            {{ link.label }}
+            {{ item.name }}
           </NuxtLink>
         </li>
       </ul>
 
-      <!-- Hamburger Button for Mobile -->
-      <button
-        class="md:hidden text-gray-700 focus:outline-none"
-        aria-label="Toggle navigation menu"
-        @click="toggleMenu"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      <!-- Right Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Notifications -->
+        <button class="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <i class="fas fa-bell text-gray-500 text-sm" />
+          <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+        </button>
+
+        <!-- Settings -->
+        <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <i class="fas fa-cog text-gray-500 text-sm" />
+        </button>
+
+        <!-- Time Display -->
+        <div class="hidden sm:block text-xs text-gray-500">
+          <span>{{ currentTime }}</span> | <span>{{ currentDate }}</span>
+        </div>
+
+        <!-- Hamburger Button for Mobile -->
+        <button
+          class="lg:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Toggle navigation menu"
+          @click="toggleMenu"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            :d="isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16m-7 6h7'"
-          />
-        </svg>
-      </button>
+          <i :class="isMenuOpen ? 'fas fa-times text-sm' : 'fas fa-bars text-sm'" class="text-gray-500" />
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Menu -->
     <div
       v-if="isMenuOpen"
-      class="md:hidden bg-white shadow-lg mt-2 rounded-lg overflow-hidden animate-slide-in"
+      class="lg:hidden bg-white border-b border-gray-100 absolute w-full shadow-md animate-slide-in"
     >
-      <ul class="flex flex-col items-center py-4">
-        <li v-for="link in navLinks" :key="link.to" class="w-full">
+      <ul class="flex flex-col py-4 text-sm font-medium text-gray-600">
+        <li v-for="item in navigationItems" :key="item.path" class="w-full">
           <NuxtLink
-            :to="link.to"
-            class="block py-2 px-4 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 text-center"
+            :to="item.path"
+            class="block py-2 px-6 hover:bg-blue-50 hover:text-blue-600 transition-colors"
             @click="toggleMenu"
           >
-            {{ link.label }}
+            {{ item.name }}
           </NuxtLink>
         </li>
       </ul>
@@ -67,26 +72,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/assistant', label: 'Assistant Builder' },
-  { to: '/onboarding', label: 'Onboarding' },
-  { to: '/integration', label: 'Integrations' },
-];
-
+// Menu state
 const isMenuOpen = ref(false);
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
+
+// Navigation items
+const navigationItems = ref([
+  { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Assistant Builder', path: '/assistant' },
+  { name: 'Templates', path: '/integration' },
+  { name: 'Integrations', path: '/omnichanel' },
+  { name: 'Analytics', path: '/analytics' },
+  { name: 'Invoice', path: '/invoice' },
+  { name: 'Payment', path: '/payments' },
+  { name: 'Settings', path: '/settings' },
+]);
+
+// Time and date
+const currentTime = ref('');
+const currentDate = ref('');
+
+const updateTime = () => {
+  const now = new Date();
+  currentTime.value = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  currentDate.value = now.toLocaleDateString([], { month: 'short', day: 'numeric' });
+};
+
+onMounted(() => {
+  updateTime();
+  setInterval(updateTime, 60000); // Update every minute
+});
 </script>
 
 <style scoped>
-nav {
-  transition: box-shadow 0.3s ease;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.animate-slide-in {
+  animation: slideIn 0.2s ease-out forwards;
 }
 
 @keyframes slideIn {
@@ -98,9 +124,5 @@ nav {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.animate-slide-in {
-  animation: slideIn 0.3s ease-out forwards;
 }
 </style>
