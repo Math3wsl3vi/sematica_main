@@ -1,10 +1,13 @@
 <template>
   <nav class="bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 font-inter py-2">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+    <div class="w-full px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
       <!-- Logo and Title -->
       <div class="flex items-center gap-2">
-        <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain" >
-        <NuxtLink to="/dashboard" class="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+        <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain">
+        <NuxtLink 
+          to="/" 
+          class="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+        >
           Sematicca
         </NuxtLink>
       </div>

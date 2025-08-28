@@ -60,6 +60,6 @@ const whatsapp = ref("");
 const instagram = ref("");
 
 function handleSetup() {
-  router.push("/afterdash"); // Redirect to dashboard after setup
+  router.push("/afterdashboard"); // Redirect to dashboard after setup
 }
 </script>
