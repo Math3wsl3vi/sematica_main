@@ -1,11 +1,16 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-    <div class="flex w-full md:max-w-7xl bg-white shadow-2xl overflow-hidden">
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 p-4 md:p-10">
+    <div class="flex flex-col md:flex-row w-full md:max-w-7xl bg-white shadow-2xl overflow-hidden">
+      
       <!-- Left Side -->
-      <div class="w-1/2 p-12 bg-gradient-to-br from-blue-500 to-purple-600 text-white flex flex-col justify-center">
-        <h1 class="text-4xl font-bold mb-2">Set Up Your Payments 💸</h1>
-        <p class="text-xl font-medium opacity-90">Enable seamless transactions for your {{ appType }} shop!</p>
-        <p class="text-sm mt-4 opacity-80">Choose your preferred payment gateways to start accepting payments from customers.</p>
+      <div class="w-full md:w-1/2 p-8 md:p-12 bg-gradient-to-br from-blue-500 to-purple-600 text-white flex flex-col justify-center text-center md:text-left">
+        <h1 class="text-2xl md:text-4xl font-bold mb-2">Set Up Your Payments 💸</h1>
+        <p class="text-lg md:text-xl font-medium opacity-90">
+          Enable seamless transactions for your {{ appType }} shop!
+        </p>
+        <p class="text-sm mt-4 opacity-80">
+          Choose your preferred payment gateways to start accepting payments from customers.
+        </p>
         <div class="mt-10">
           <span class="text-sm opacity-70">Powered by</span>
           <h2 class="text-lg font-semibold">YourAppName</h2>
@@ -13,14 +18,16 @@
       </div>
 
       <!-- Right Side: Payment Gateway Setup Form -->
-      <div class="w-1/2 p-12 flex flex-col justify-center">
-        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Configure Payment Gateways</h2>
+      <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+        <h2 class="text-xl md:text-2xl font-semibold mb-6 text-gray-800 text-center md:text-left">
+          Configure Payment Gateways
+        </h2>
         
         <form class="space-y-6" @submit.prevent="handlePaymentSetup">
           <!-- Payment Gateway Selection -->
           <div>
             <label class="block text-gray-700 text-sm font-medium mb-3">Select Payment Gateways</label>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div
                 v-for="gateway in availableGateways"
                 :key="gateway.id"

@@ -60,6 +60,6 @@ const whatsapp = ref("");
 const instagram = ref("");
 
 function handleSetup() {
-  router.push("/paymentgateway"); // Redirect to dashboard after setup
+  router.push("/"); // Redirect to dashboard after setup
 }
 </script>

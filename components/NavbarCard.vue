@@ -5,7 +5,7 @@
       <div class="flex items-center gap-2">
         <img src="../assets/img/SEMATICA.png" alt="Sematica Icon" class="w-8 h-8 object-contain" >
         <NuxtLink to="/dashboard" class="text-lg font-semibold text-blue-600 hover:text-blue-700 transition-colors">
-          Sematica
+          Sematicca
         </NuxtLink>
       </div>
 

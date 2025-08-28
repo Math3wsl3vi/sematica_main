@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 p-4">
-    <div class="flex flex-col md:flex-row w-full md:max-w-7xl bg-white shadow-2xl overflow-hidden rounded-2xl">
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 p-4 md:p-10">
+    <div class="flex flex-col md:flex-row w-full md:max-w-7xl bg-white shadow-2xl overflow-hidden">
       
       <!-- Left Side -->
       <div class="w-full md:w-1/2 p-6 md:p-12 bg-gradient-to-br from-orange-600 to-red-500 text-white flex flex-col justify-center text-center md:text-left">
