@@ -1,5 +1,5 @@
 <template>
-  <aside :class="`${isCollapsed ? 'w-16' : 'w-64'} min-h-screen bg-white border-r border-gray-200 shadow-sm transition-all duration-300 relative`">
+  <aside :class="`${isCollapsed ? 'w-16' : 'w-72'} min-h-screen bg-white border-r border-gray-200 shadow-sm transition-all duration-300 relative`">
     <!-- Header -->
     <!-- <div class="p-6 border-b border-gray-100">
       <div class="flex items-center justify-between">
