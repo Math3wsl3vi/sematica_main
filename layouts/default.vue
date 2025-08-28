@@ -1,12 +1,18 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- NavbarCard -->
+    <!-- Navbar -->
     <NavbarCard />
 
-    <!-- Main content -->
-    <main class="flex-grow min-h-screen">
-      <slot />
-    </main>
+    <!-- Main content with sidebar -->
+    <div class="flex flex-grow min-h-screen">
+      <!-- Sidebar -->
+      <AppSidebar class="w-52 border-r border-gray-200 bg-white shadow-sm" />
+
+      <!-- Page content -->
+      <main class="flex-grow p-6 bg-gray-50">
+        <slot />
+      </main>
+    </div>
 
     <!-- Footer -->
     <AppFooter />
@@ -16,6 +22,7 @@
 <script setup>
 import NavbarCard from '~/components/NavbarCard.vue'
 import AppFooter from '~/components/AppFooter.vue'
+import AppSidebar from '~/components/AppSidebar.vue'
 </script>
 
 <style scoped>

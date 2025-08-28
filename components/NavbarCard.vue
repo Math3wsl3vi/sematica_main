@@ -9,19 +9,6 @@
         </NuxtLink>
       </div>
 
-      <!-- Desktop Menu -->
-      <ul class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
-        <li v-for="item in navigationItems" :key="item.path">
-          <NuxtLink
-            :to="item.path"
-            class="hover:text-blue-600 transition-colors duration-150"
-            :class="{ 'text-blue-600': $route.path === item.path }"
-          >
-            {{ item.name }}
-          </NuxtLink>
-        </li>
-      </ul>
-
       <!-- Right Actions -->
       <div class="flex items-center gap-3">
         <!-- Notifications -->
@@ -81,16 +68,7 @@ const toggleMenu = () => {
 };
 
 // Navigation items
-const navigationItems = ref([
-  { name: 'Dashboard', path: '/' },
-  { name: 'Assistant Builder', path: '/assistant' },
-  { name: 'Templates', path: '/integration' },
-  { name: 'Integrations', path: '/omnichanel' },
-  { name: 'Analytics', path: '/analytics' },
-  { name: 'Invoice', path: '/invoice' },
-  { name: 'Payment', path: '/payments' },
-  { name: 'Settings', path: '/settings' },
-]);
+
 
 // Time and date
 const currentTime = ref('');
