@@ -83,6 +83,10 @@ import {
 // Import reusable text input
 import RadixTextField from "@/components/RadixTextField.vue";
 
+definePageMeta({
+  layout: 'auth'
+})
+
 const firstName = ref("");
 const lastName = ref("");
 const company = ref("");

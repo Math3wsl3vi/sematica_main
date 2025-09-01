@@ -47,15 +47,36 @@
 </template>
 
 <script setup>
+
 import { ref } from "vue";
 import RadixTextField from "@/components/RadixTextField.vue";
+
+definePageMeta({
+  layout: 'auth'
+})
 
 const email = ref("");
 const password = ref("");
 const router = useRouter();
 
-function handleLogin() {
-  console.log("Login attempt with:", email.value, password.value);
-  router.push("/");
+async function handleLogin() {
+  try {
+    const res = await axios.post("http://localhost:3000/api/auth/login", {
+      email: email.value,
+      password: password.value,
+    });
+
+    if (res.data.success) {
+      // Save token to localStorage (or cookie if using httpOnly)
+      localStorage.setItem("token", res.data.token);
+      router.push("/"); // redirect to dashboard/home
+    } else {
+      alert(res.data.message || "Login failed");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Check console.");
+  }
 }
+
 </script>
