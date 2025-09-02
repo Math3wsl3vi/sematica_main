@@ -30,7 +30,6 @@
           <!-- Login Button -->
           <button
             class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition font-medium"
-            onclick="handleLogin()"
           >
             Login
           </button>
@@ -47,36 +46,36 @@
 </template>
 
 <script setup>
-
-import { ref } from "vue";
-import RadixTextField from "@/components/RadixTextField.vue";
+import { ref } from "vue"
+import { useRouter } from "vue-router"
 
 definePageMeta({
   layout: 'auth'
 })
 
-const email = ref("");
-const password = ref("");
-const router = useRouter();
+const email = ref("")
+const password = ref("")
+const router = useRouter()
 
 async function handleLogin() {
   try {
-    const res = await axios.post("http://localhost:3000/api/auth/login", {
-      email: email.value,
-      password: password.value,
-    });
+    const res = await $fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      body: {
+        email: email.value,
+        password: password.value,
+      },
+    })
 
-    if (res.data.success) {
-      // Save token to localStorage (or cookie if using httpOnly)
-      localStorage.setItem("token", res.data.token);
-      router.push("/"); // redirect to dashboard/home
+    if (res.success) {
+      localStorage.setItem("token", res.token)
+      router.push("/")
     } else {
-      alert(res.data.message || "Login failed");
+      alert(res.message || "Login failed")
     }
   } catch (err) {
-    console.error(err);
-    alert("Something went wrong. Check console.");
+    console.error(err)
+    alert("Something went wrong. Check console.")
   }
 }
-
 </script>

@@ -10,6 +10,14 @@ export default defineNuxtConfig({
       ],
     },
   },
+  vite: {
+    optimizeDeps: {
+      include: ["axios"],
+    },
+  },
+  build: {
+    transpile: ["axios"],
+  },
   modules: [
     '@nuxt/ui',
     '@nuxt/content',
